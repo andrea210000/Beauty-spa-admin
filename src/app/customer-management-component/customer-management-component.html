@@ -1,0 +1,206 @@
+<div class="page-content">
+  <!-- Header -->
+  <div class="header-section fade-entrance animate-fade-up">
+    <div>
+      <h2 class="page-title">Gesti&oacute;n de clientes</h2>
+      <p class="page-subtitle">
+        Gestiona los clientes registrados, verifica el estado de los clientes y personaliza cada
+        experiencia en sus visitas
+      </p>
+    </div>
+    <div class="header-actions">
+      <div class="filter-wrapper">
+        <button class="action-btn premium-transition" (click)="showFilter.set(!showFilter())">
+          <span class="material-symbols-outlined">filter_list</span>
+          Filtrar
+        </button>
+        @if (showFilter()) {
+          <div
+            class="filter-dropdown fade-entrance animate-fade-up"
+            (click)="$event.stopPropagation()"
+          >
+            <label class="filter-option">
+              <input
+                type="checkbox"
+                [checked]="selectedFilters().includes('Activo')"
+                (change)="toggleFilter('Activo')"
+              />
+              Activo
+            </label>
+            <label class="filter-option">
+              <input
+                type="checkbox"
+                [checked]="selectedFilters().includes('Inactivo')"
+                (change)="toggleFilter('Inactivo')"
+              />
+              Inactivo
+            </label>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div
+      class="stat-card fade-entrance animate-fade-up stagger-1 group hover:-translate-y-1 premium-transition"
+    >
+      <div class="stat-content">
+        <div class="stat-label-row">
+          <span class="material-symbols-outlined stat-inline-icon">groups</span>
+          <p class="stat-label">Total de clientes registrados</p>
+        </div>
+        <h3 class="stat-value">{{ totalClients() }}</h3>
+        <p class="stat-trend">
+          <span class="material-symbols-outlined trend-icon">trending_up</span>
+          Base de datos completa
+        </p>
+      </div>
+      <div class="stat-icon-deco group-hover:scale-125 group-hover:rotate-12 premium-transition">
+        <span class="material-symbols-outlined">groups</span>
+      </div>
+    </div>
+    <div
+      class="stat-card stat-card-alt fade-entrance animate-fade-up stagger-2 group hover:-translate-y-1 premium-transition"
+    >
+      <div class="stat-content">
+        <div class="stat-label-row">
+          <span class="material-symbols-outlined stat-inline-icon">check_circle</span>
+          <p class="stat-label">Clientes activos</p>
+        </div>
+        <h3 class="stat-value">{{ activeClients() }}</h3>
+        <p class="stat-trend stat-trend-green">
+          <span class="material-symbols-outlined trend-icon">check</span>
+          Con acceso al santuario
+        </p>
+      </div>
+      <div class="stat-icon-deco group-hover:scale-125 group-hover:-rotate-12 premium-transition">
+        <span class="material-symbols-outlined">check_circle</span>
+      </div>
+    </div>
+    <div
+      class="stat-card stat-card-warn fade-entrance animate-fade-up stagger-3 group hover:-translate-y-1 premium-transition"
+    >
+      <div class="stat-content">
+        <div class="stat-label-row">
+          <span class="material-symbols-outlined stat-inline-icon">pause_circle</span>
+          <p class="stat-label">Clientes inactivos</p>
+        </div>
+        <h3 class="stat-value">{{ inactiveClients() }}</h3>
+        <p class="stat-trend stat-trend-amber">
+          <span class="material-symbols-outlined trend-icon">info</span>
+          Requieren atenci&oacute;n
+        </p>
+      </div>
+      <div class="stat-icon-deco group-hover:scale-125 group-hover:rotate-45 premium-transition">
+        <span class="material-symbols-outlined">pause_circle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper fade-entrance animate-fade-up stagger-3 premium-transition">
+    <table class="client-table">
+      <thead>
+        <tr>
+          <th>Nombre completo</th>
+          <th>Correo</th>
+          <th>Tel&eacute;fono</th>
+          <th>Identificaci&oacute;n</th>
+          <th>Estado</th>
+          <th>Fecha registro</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (client of paginatedClients(); track client.idCliente; let i = $index) {
+          <tr
+            class="client-row fade-entrance animate-fade-up"
+            [style.animation-delay]="0.5 + i * 0.1 + 's'"
+          >
+            <td>
+              <div class="client-cell">
+                <div class="client-avatar">{{ getIniciales(client) }}</div>
+                <span class="client-name">{{ client.nombres }} {{ client.apellidos }}</span>
+              </div>
+            </td>
+            <td class="text-cell">{{ client.correo }}</td>
+            <td class="text-cell">{{ client.telefono }}</td>
+            <td class="text-cell">
+              {{ getTipoIdentificacion(client.idTipoIdentificacion) }}
+              {{ client.numeroIdentificacion }}
+            </td>
+            <td>
+              <span
+                class="status-badge premium-transition"
+                [class.active]="client.estado === 2"
+                [class.inactive]="client.estado === 1"
+              >
+                {{ getEstadoLabel(client.estado) }}
+              </span>
+            </td>
+            <td class="text-cell">{{ client.fechaRegistro }}</td>
+            <td>
+              <div class="actions-cell">
+                <button
+                  class="action-icon-btn premium-transition"
+                  (click)="toggleStatus(client)"
+                  [title]="client.estado === 2 ? 'Desactivar' : 'Activar'"
+                >
+                  @if (client.estado === 2) {
+                    <span class="material-symbols-outlined">toggle_off</span>
+                  } @else {
+                    <span class="material-symbols-outlined">toggle_on</span>
+                  }
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7" class="empty-state">
+              No se encontraron clientes con los filtros seleccionados
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    @if (totalPages() > 1) {
+      <div class="pagination fade-entrance animate-fade-up" [style.animation-delay]="'0.9s'">
+        <p class="pagination-info">
+          Mostrando 1 a {{ itemsPerPage }} de {{ totalClients() }} clientes
+        </p>
+        <div class="pagination-controls">
+          <button
+            class="page-btn premium-transition"
+            [class.disabled]="currentPage() === 1"
+            (click)="goToPage(currentPage() - 1)"
+            [disabled]="currentPage() === 1"
+          >
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          @for (page of getPages(); track page) {
+            <button
+              class="page-btn page-num premium-transition"
+              [class.active]="currentPage() === page"
+              (click)="goToPage(page)"
+            >
+              {{ page }}
+            </button>
+          }
+          <button
+            class="page-btn premium-transition"
+            [class.disabled]="currentPage() === totalPages()"
+            (click)="goToPage(currentPage() + 1)"
+            [disabled]="currentPage() === totalPages()"
+          >
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

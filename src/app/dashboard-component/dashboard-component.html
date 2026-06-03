@@ -1,0 +1,139 @@
+<div class="dashboard-content">
+  <div class="welcome-header">
+    <h2 class="welcome-title">Buenos días, {{userName()}}</h2>
+    <p class="welcome-sub">Aquí tienes un resumen de lo que está sucediendo hoy en el sanctuary.</p>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-top">
+        <div class="metric-icon pink-bg-light">
+          <span class="material-symbols-outlined">calendar_today</span>
+        </div>
+        <span class="metric-badge">+12%</span>
+      </div>
+      <p class="metric-label">Citas Hoy</p>
+      <h3 class="metric-value">12</h3>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-top">
+        <div class="metric-icon rose-bg-light">
+          <span class="material-symbols-outlined">person_add</span>
+        </div>
+        <span class="metric-badge rose">Nuevo</span>
+      </div>
+      <p class="metric-label">Nuevos Clientes</p>
+      <h3 class="metric-value">{{newClientsToday()}}</h3>
+    </div>
+
+    <div class="metric-card sales-card">
+      <div class="metric-top">
+        <div class="metric-icon white-bg-20">
+          <span class="material-symbols-outlined">payments</span>
+        </div>
+      </div>
+      <p class="metric-label white-text">Ventas del Día</p>
+      <h3 class="metric-value white-text">$450.00</h3>
+      <div class="sales-accent"></div>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <div class="table-section">
+      <div class="table-header">
+        <h4>Próximas Citas</h4>
+        <button class="see-all-btn">Ver todas</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Hora</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="client-cell">
+                  <div class="avatar initial">EP</div>
+                  <span>Elena Peña</span>
+                </div>
+              </td>
+              <td>Tratamiento Facial Silk</td>
+              <td>14:30</td>
+              <td><span class="badge confirmed">Confirmada</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="client-cell">
+                  <div class="avatar img-placeholder">
+                    <span class="material-symbols-outlined">person</span>
+                  </div>
+                  <span>Lucía Méndez</span>
+                </div>
+              </td>
+              <td>Masaje Relajante</td>
+              <td>15:45</td>
+              <td><span class="badge pending">Pendiente</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="client-cell">
+                  <div class="avatar initial rose">CM</div>
+                  <span>Carlos Marín</span>
+                </div>
+              </td>
+              <td>Manicura Premium</td>
+              <td>17:00</td>
+              <td><span class="badge confirmed">Confirmada</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="widgets-section">
+      <div class="stock-widget">
+        <div class="widget-header">
+          <h4>Stock Bajo</h4>
+          <span class="material-symbols-outlined stock-icon">inventory_2</span>
+        </div>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-img">
+              <span class="material-symbols-outlined">spa</span>
+            </div>
+            <div class="stock-info">
+              <p class="stock-name">Aceite Lavanda 50ml</p>
+              <p class="stock-qty">2 unidades restantes</p>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-img">
+              <span class="material-symbols-outlined">spa</span>
+            </div>
+            <div class="stock-info">
+              <p class="stock-name">Mascarilla Hidratante</p>
+              <p class="stock-qty">3 unidades restantes</p>
+            </div>
+          </div>
+        </div>
+        <button class="manage-btn">Gestionar Inventario</button>
+      </div>
+
+      <div class="suggestion-card">
+        <div class="suggestion-content">
+          <h5>Sugerencia de hoy</h5>
+          <p>La demanda de Masajes Relajantes ha subido un 20%. Considera promocionar el pack "Zen Weekend".</p>
+        </div>
+        <div class="suggestion-decor">
+          <span class="material-symbols-outlined">auto_awesome</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

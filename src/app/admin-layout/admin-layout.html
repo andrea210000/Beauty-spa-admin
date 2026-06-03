@@ -1,0 +1,88 @@
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <h1 class="brand-name">Beauty Spa</h1>
+      <p class="brand-sub">Wellness Dashboard</p>
+    </div>
+
+    <nav>
+      <a class="nav-item" [class.active]="section() === 'dashboard'" (click)="goTo('dashboard')">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'appointments'" (click)="goTo('appointments')">
+        <span class="material-symbols-outlined">calendar_month</span>
+        <span>Citas</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'customers'" (click)="goTo('customers')">
+        <span class="material-symbols-outlined">face_6</span>
+        <span>Clientes</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'inventory'" (click)="goTo('inventory')">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>Inventario</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'sales'" (click)="goTo('sales')">
+        <span class="material-symbols-outlined">payments</span>
+        <span>Ventas</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'staff'" (click)="goTo('staff')">
+        <span class="material-symbols-outlined">badge</span>
+        <span>Personal</span>
+      </a>
+      <a class="nav-item" [class.active]="section() === 'settings'" (click)="goTo('settings')">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Configuración</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="sidebar-bottom">
+    <button class="new-transaction-btn" (click)="goTo('appointments')">
+      <span class="material-symbols-outlined">add</span>
+      <span>Nueva transacción</span>
+    </button>
+
+    <a class="nav-item" (click)="goTo('help')">
+      <span class="material-symbols-outlined">help</span>
+      <span>Help Center</span>
+    </a>
+    <a class="nav-item" (click)="logout()">
+      <span class="material-symbols-outlined">logout</span>
+      <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<div class="main-area">
+  <header class="topbar">
+    <div class="search-container">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input class="search-input" [placeholder]="'Buscar ' + searchLabel()" />
+    </div>
+
+    <div class="topbar-right">
+      <button class="icon-btn">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="notif-dot"></span>
+      </button>
+      <button class="icon-btn" (click)="goTo('settings')">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+
+      <div class="user-profile" (click)="goTo('profile')">
+        <div class="user-info">
+          <p class="user-name">Admin</p>
+          <p class="user-role">Administrator Profile</p>
+        </div>
+        <div class="user-avatar">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

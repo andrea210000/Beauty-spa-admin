@@ -1,0 +1,134 @@
+<p-toast position="top-right" />
+
+<main class="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img
+      alt="Serene Spa Environment"
+      class="w-full h-full object-cover hero-zoom"
+      src="/assets/images/login-background.png"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-tr from-surface/40 via-transparent to-primary/10"
+    ></div>
+  </div>
+
+  <section class="relative z-10 w-full max-w-[480px] px-6">
+    <div
+      class="glass-panel border border-surface-container-high/30 rounded-[2.5rem] shadow-[0_20px_60px_rgba(172,45,94,0.08)] p-10 md:p-14 transform transition-all duration-700 ease-out hover:shadow-[0_30px_80px_rgba(172,45,94,0.12)]"
+    >
+      <div class="flex flex-col items-center mb-12">
+        <img src="/assets/images/beauty-logo.png" alt="Beauty Spa" class="w-16 h-16 mb-4" />
+        <h1 class="font-display text-3xl font-bold tracking-tight text-on-surface">Beauty Spa</h1>
+        <p class="font-body text-xs uppercase tracking-[0.2em] mt-2" style="color: #ff69b4">
+          Sanctuary of Wellness
+        </p>
+      </div>
+
+      <header class="mb-10 text-center">
+        <h2 class="font-display text-2xl font-medium text-on-surface mb-3">Bienvenido de nuevo</h2>
+        <p class="font-body text-on-surface-variant leading-relaxed">
+          Ingresa tus datos para volver a tu santuario personal.
+        </p>
+      </header>
+
+      <form class="space-y-6" (submit)="$event.preventDefault()">
+        <div class="space-y-2">
+          <label
+            class="block font-label text-sm font-semibold text-on-surface-variant ml-1"
+            for="username"
+            >Usuario</label
+          >
+          <div class="relative group">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors pointer-events-none"
+              >person</span
+            >
+            <input
+              pInputText
+              id="username"
+              [value]="username()"
+              (input)="onUsernameInput($event)"
+              (keydown.enter)="onEnter($event)"
+              placeholder="Usuario"
+              maxlength="30"
+              class="w-full pl-12 pr-4 py-4 border-none rounded-2xl transition-all outline-none placeholder:text-outline-variant/60 input-dark"
+              aria-describedby="username-error"
+            />
+          </div>
+          @if (usernameError()) {
+            <small id="username-error" class="text-error text-xs ml-1"
+              >Caracteres especiales no permitidos</small
+            >
+          }
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between items-center px-1">
+            <label
+              class="block font-label text-sm font-semibold text-on-surface-variant"
+              for="password"
+              >Contraseña</label
+            >
+          </div>
+          <div class="relative group">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors pointer-events-none"
+              >lock</span
+            >
+            <input
+              pInputText
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              [value]="password()"
+              (input)="onPasswordInput($event)"
+              (keydown.enter)="onEnter($event)"
+              placeholder="Contraseña"
+              maxlength="12"
+              class="w-full pl-12 pr-12 py-4 border-none rounded-2xl transition-all outline-none placeholder:text-outline-variant/60 input-dark"
+              aria-describedby="password-error"
+            />
+            <button type="button" (click)="showPassword.set(!showPassword())" class="eye-btn">
+              <span class="material-symbols-outlined">{{
+                showPassword() ? 'visibility_off' : 'visibility'
+              }}</span>
+            </button>
+          </div>
+          @if (passwordError()) {
+            <small id="password-error" class="text-error text-xs ml-1"
+              >Caracteres especiales no permitidos</small
+            >
+          }
+        </div>
+
+        <div class="pt-4">
+          <button
+            pButton
+            type="button"
+            label="Iniciar Sesión"
+            [disabled]="!isValid()"
+            [ngStyle]="{ 'background-color': isValid() ? '#ff69b4' : '#f3a1c4' }"
+            (click)="login()"
+            class="w-full text-on-primary font-bold py-4 rounded-full shadow-lg transition-all duration-500 ease-out active:scale-95"
+          ></button>
+        </div>
+      </form>
+
+      <footer class="mt-12 flex justify-center items-center gap-4 opacity-40">
+        <div class="h-[1px] w-8 bg-outline-variant"></div>
+        <span class="material-symbols-outlined text-sm">filter_vintage</span>
+        <div class="h-[1px] w-8 bg-outline-variant"></div>
+      </footer>
+    </div>
+  </section>
+
+  <div class="absolute bottom-10 right-10 z-10 hidden md:block">
+    <div
+      class="flex items-center gap-3 bg-white/20 backdrop-blur-md px-6 py-4 rounded-full border border-white/30 text-on-primary"
+    >
+      <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1"
+        >verified</span
+      >
+      <span class="text-sm font-medium tracking-wide">Acceso Seguro al Santuario</span>
+    </div>
+  </div>
+</main>
